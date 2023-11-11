@@ -1,0 +1,11 @@
+name: MineChannelPoints
+main: io.siggi.minechannelpoints.MineChannelPoints
+version: ${project.version}
+author: Siggi
+description: The MineChannelPoints plugin XD
+depend: [ CubeCore, NBTTool ]
+api-version: 1.13
+commands:
+  channelpoints:
+    description: Add Channel Point Rewards to your Twitch stream
+    usage: "/<command>"

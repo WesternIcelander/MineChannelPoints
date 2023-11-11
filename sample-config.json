@@ -1,0 +1,6 @@
+{
+  "blockSelfRedeems": true,
+  "clientId": "",
+  "clientSecret": "",
+  "eventSubSecret": "put some random text here 64 characters"
+}

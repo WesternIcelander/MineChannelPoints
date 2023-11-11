@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Wolf;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.EntityEquipment;
@@ -101,6 +102,21 @@ public class ChannelPointRewards {
                     wolf.setOwner(player);
                     wolf.setCustomName(text);
                     announce(redeemer + " gifted " + player.getName() + " a wolf!");
+                    return true;
+                }
+        ));
+        addReward(new ChannelPointReward(
+                "spawn_rainbow_sheep",
+                "Spawn Rainbow Sheep",
+                "Spawn a Rainbow Sheep! :D",
+                false,
+                2500,
+                (player, redeemer, text) -> {
+                    Location location = player.getLocation();
+                    Sheep sheep = (Sheep) player.getWorld().spawnEntity(location, EntityType.SHEEP);
+                    sheep.setCustomName("jeb_");
+                    sheep.setLeashHolder(player);
+                    announce(redeemer + " gifted " + player.getName() + " a rainbow sheep!");
                     return true;
                 }
         ));

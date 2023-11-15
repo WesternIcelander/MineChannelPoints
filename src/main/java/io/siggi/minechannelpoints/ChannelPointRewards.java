@@ -164,7 +164,7 @@ public class ChannelPointRewards {
                 250,
                 (player, redeemer, text) -> {
                     player.addPotionEffects(List.of(new PotionEffect(PotionEffectType.SLOW_DIGGING, 20 * 60, 1)));
-                    announce(redeemer + " gave " + player.getName() + " Haste V!");
+                    announce(redeemer + " gave " + player.getName() + " Mining Fatigue II!");
                     return true;
                 }
         ));

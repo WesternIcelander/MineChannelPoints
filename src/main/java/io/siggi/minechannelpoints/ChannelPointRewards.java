@@ -30,6 +30,9 @@ public class ChannelPointRewards {
     private static final Map<String, ChannelPointReward> immutableRewards = Collections.unmodifiableMap(rewards);
 
     private static void addReward(ChannelPointReward reward) {
+        if (rewards.get(reward.id()) != null) {
+            throw new IllegalArgumentException("Duplicate reward id: " + reward.id());
+        }
         rewards.put(reward.id(), reward);
     }
 

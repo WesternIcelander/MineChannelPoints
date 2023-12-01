@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Wolf;
 import org.bukkit.entity.Zombie;
@@ -39,34 +40,19 @@ public class ChannelPointRewards {
     static {
         addReward(new ChannelPointReward(
                 "spawn_zombie",
-                "Spawn Zombie",
-                "With full diamond! XD",
+                "Spawn Zombie (15%)",
+                "With full diamond! XD -- The sword and each armor piece each have a 15% chance of dropping.",
                 false,
                 500,
-                (player, redeemer, text) -> {
-                    if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
-                        announce(redeemer + " tried to redeem Spawn Zombie on " + player.getName() + ", but was rejected since the player is in the nether.");
-                        return false;
-                    }
-                    Location location = player.getLocation();
-                    Zombie zombie = (Zombie) player.getWorld().spawnEntity(location, EntityType.ZOMBIE);
-                    EntityEquipment equipment = zombie.getEquipment();
-                    equipment.setHelmet(new ItemStack(Material.DIAMOND_HELMET, 1), true);
-                    equipment.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE, 1), true);
-                    equipment.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS, 1), true);
-                    equipment.setBoots(new ItemStack(Material.DIAMOND_BOOTS, 1), true);
-                    equipment.setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD, 1), true);
-                    equipment.setItemInOffHand(new ItemStack(Material.BAKED_POTATO, 4), true);
-                    equipment.setHelmetDropChance(0.15f);
-                    equipment.setChestplateDropChance(0.15f);
-                    equipment.setLeggingsDropChance(0.15f);
-                    equipment.setBootsDropChance(0.15f);
-                    equipment.setItemInMainHandDropChance(0.15f);
-                    equipment.setItemInOffHandDropChance(1.0f);
-                    zombie.setTarget(player);
-                    announce(redeemer + " gifted " + player.getName() + " a zombie!");
-                    return true;
-                }
+                (player, redeemer, text) -> spawnZombie(player, redeemer, 0.15f)
+        ));
+        addReward(new ChannelPointReward(
+                "spawn_zombie_99",
+                "Spawn Zombie (99%)",
+                "With full diamond! XD -- The sword and each armor piece each have a 99% chance of dropping.",
+                false,
+                6500,
+                (player, redeemer, text) -> spawnZombie(player, redeemer, 0.99f)
         ));
         addReward(new ChannelPointReward(
                 "spawn_cat",
@@ -247,6 +233,31 @@ public class ChannelPointRewards {
                     return true;
                 }
         ));
+    }
+
+    private static boolean spawnZombie(Player player, String redeemer, float itemsDropChance) {
+        if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
+            announce(redeemer + " tried to redeem Spawn Zombie on " + player.getName() + ", but was rejected since the player is in the nether.");
+            return false;
+        }
+        Location location = player.getLocation();
+        Zombie zombie = (Zombie) player.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+        EntityEquipment equipment = zombie.getEquipment();
+        equipment.setHelmet(new ItemStack(Material.DIAMOND_HELMET, 1), true);
+        equipment.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE, 1), true);
+        equipment.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS, 1), true);
+        equipment.setBoots(new ItemStack(Material.DIAMOND_BOOTS, 1), true);
+        equipment.setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD, 1), true);
+        equipment.setItemInOffHand(new ItemStack(Material.BAKED_POTATO, 4), true);
+        equipment.setHelmetDropChance(itemsDropChance);
+        equipment.setChestplateDropChance(itemsDropChance);
+        equipment.setLeggingsDropChance(itemsDropChance);
+        equipment.setBootsDropChance(itemsDropChance);
+        equipment.setItemInMainHandDropChance(itemsDropChance);
+        equipment.setItemInOffHandDropChance(1.0f);
+        zombie.setTarget(player);
+        announce(redeemer + " gifted " + player.getName() + " a zombie!");
+        return true;
     }
 
     public static Map<String, ChannelPointReward> get() {

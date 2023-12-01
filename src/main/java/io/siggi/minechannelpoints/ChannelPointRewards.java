@@ -233,6 +233,18 @@ public class ChannelPointRewards {
                     return true;
                 }
         ));
+        addReward(new ChannelPointReward(
+                "spawn_recovery_compass",
+                "Spawn Recovery Compass",
+                "Help me find my way back to where I died!",
+                false,
+                5500,
+                (player, redeemer, text) -> {
+                    give(player, new ItemStack(Material.RECOVERY_COMPASS, 1));
+                    announce(redeemer + " gave " + player.getName() + " a recovery compass!");
+                    return true;
+                }
+        ));
     }
 
     private static boolean spawnZombie(Player player, String redeemer, float itemsDropChance) {

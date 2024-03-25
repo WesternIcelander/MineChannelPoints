@@ -494,6 +494,10 @@ public class MineChannelPoints extends JavaPlugin implements Listener {
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.spigot().sendMessage(message);
         }
+        try {
+            instance.getLogger().info(message.toPlainText());
+        } catch (Exception ignored) {
+        }
     }
 
     public static void give(Player player, ItemStack item) {
